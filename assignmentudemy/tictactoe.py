@@ -4,26 +4,34 @@
 # the board should be printed out every time a player makes a move
 # you should be able to accept input of the player position and then place a symbol on the board
 
-board = ['_','_','_','_','_','_','_','_','_']
+board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+prevmove = ' '
 
 
 def printboard():
-    print(board[6], board[7], board[8])
-    print(board[3], board[4], board[5])
-    print(board[0], board[1], board[2])
+    print(" " + board[6] + " | " + board[7]+ " | " + board[8] + " ")
+    print(" " + board[3] + " | " + board[4]+ " | " + board[5] + " ")
+    print(" " + board[0] + " | " + board[1]+ " | " + board[2] + " ")
 
 printboard()
 
 def acceptplayermove():
+    global prevmove
     sym = raw_input('Please input your symbol')
     if sym not in ('X', 'O'):
         print('cannot make move with this sym: ' + sym)
         return
+    if(sym == prevmove):
+        print('sorry this is not your turn')
+        return
+    else:
+        prevmove = sym
+
     pos = int(input('Please input your position'))
     if pos not in range(0, 9):
-        print('cannot make move to this pos: ' + pos)
+        print("Sorry, please input a number between 0-8.")
         return
-    if board[pos] == '_':
+    if board[pos] == ' ':
         board[pos] = sym
         checkwin(sym)
     else:
@@ -36,13 +44,12 @@ def checkwin(sym):
         print('player wins')
         return True
     else:
-        print('game is still on')
         return False
 
 def countavlblpositions():
     count = 0
     for char in board:
-        if char == '_':
+        if char == ' ':
             count = count +1
     return count
 
