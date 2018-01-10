@@ -21,16 +21,18 @@ def acceptplayermove():
     if sym not in ('X', 'O'):
         print('cannot make move with this sym: ' + sym)
         return
-    if(sym == prevmove):
-        print('sorry this is not your turn')
-        return
-    else:
-        prevmove = sym
 
     pos = int(input('Please input your position'))
     if pos not in range(0, 9):
         print("Sorry, please input a number between 0-8.")
         return
+
+    if(sym == prevmove):
+        print('sorry this is not your turn')
+        return
+    else:
+        prevmove = sym
+        
     if board[pos] == ' ':
         board[pos] = sym
         checkwin(sym)
