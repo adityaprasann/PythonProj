@@ -15,7 +15,7 @@ def printboard():
 printboard()
 
 def acceptplayermove():
-    sym = input('Please input your symbol')
+    sym = raw_input('Please input your symbol')
     if sym not in ('X', 'O'):
         print('cannot make move with this sym: ' + sym)
         return
@@ -27,31 +27,25 @@ def acceptplayermove():
         board[pos] = sym
         checkwin(sym)
     else:
-         print('cannot make this move')
-         return
+        print('cannot make this move as position non empty')
+        return
 
 def checkwin(sym):
-    if (board[0] == board[1] == board[2] == sym):
+    if (board[0] == board[1] == board[2] == sym) or (board[3] == board[4] == board[5] == sym) or (board[6] == board[7] == board[8] == sym) or (board[0] == board[3] == board[6] == sym)\
+            or (board[1] == board[4] == board[7] == sym) or (board[2] == board[5] == board[8] == sym) or (board[0] == board[4] == board[8] == sym) or (board[2] == board[4] == board[6] == sym):
         print('player wins')
-    elif (board[3] == board[4] == board[5] == sym):
-        print('player wins')
-    elif (board[6] == board[7] == board[8] == sym):
-        print('player wins')
-    elif (board[0] == board[3] == board[6] == sym):
-        print('player wins')
-    elif (board[1] == board[4] == board[7] == sym):
-        print('player wins')
-    elif (board[2] == board[5] == board[8] == sym):
-        print('player wins')
-    elif (board[0] == board[4] == board[8] == sym):
-        print('player wins')
-    elif (board[2] == board[4] == board[6] == sym):
-        print('player wins')
+        return True
     else:
         print('game is still on')
+        return False
 
+def countavlblpositions():
+    count = 0
+    for char in board:
+        if char == '_':
+            count = count +1
+    return count
 
-acceptplayermove()
-printboard()
-acceptplayermove()
-printboard()
+while(countavlblpositions() > 0 and not checkwin('X') and not checkwin('O')):
+    acceptplayermove()
+    printboard()
