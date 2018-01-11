@@ -37,3 +37,33 @@ class Cylinder(object):
 c = Cylinder(2,3)
 print (c.volume())
 print (c.surface_area())
+
+
+try:
+    for i in ['a','b','c']:
+        print i**2
+except:
+    print "An error occurred!"
+
+x = 5
+y = 0
+
+try:
+    z = x/y
+except ZeroDivisionError:
+    print "An error occurred!"
+finally:
+    print 'All Done.'
+
+def ask():
+    while True:
+        try:
+            num = int(raw_input('Input an integer:'))
+        except:
+            print('An error occurred! Please try again!')
+            continue
+        else:
+            break
+    print 'Thank you, you number squared is: ' , num ** 2
+
+ask()
