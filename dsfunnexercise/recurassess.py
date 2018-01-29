@@ -85,4 +85,31 @@ print (fib_iter(10))
 print (fib_iter(1))
 print (fib_iter(23))
 
+def rec_coin(target,coins):
+    coins = coins
+    count = 0
+    while len(coins) > 1:
+        max = findmax(coins)
+        if target//max > 1:
+            count += 1
+            rec_coin(target%max,coins)
+        elif target//max == 1:
+            count += 1
+            rec_coin(target%max, sublist(coins, max))
+        else:
+            rec_coin(target%max, sublist(coins, max))
+    return count
+
+def findmax(coins):
+    m = coins[0]
+    for coin in coins:
+        m = max(m,coin)
+    return m
+
+def sublist(coins,ele):
+    retc = coins.remove(ele)
+    return retc
+
+print(rec_coin(45,[1,5,10,25]))
+
 
