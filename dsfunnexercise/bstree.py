@@ -7,37 +7,20 @@ class BSTree(object):
         self._insert(self.root, data)
 
     def _insert(self, root, data):
-        if root == None:
+        if root is None:
             self.root = BNode(data)
         else:
-            if (data <= root.data):
-                if (root.ltree):
+            if data <= root.data:
+                if root.ltree:
                     self._insert(root.ltree, data)
                 else:
                     root.ltree = BNode(data)
-            elif (data > root.data):
-                if (root.rtree):
+            elif data > root.data:
+                if root.rtree:
                     self._insert(root.rtree, data)
                 else:
                     root.rtree = BNode(data)
 
-    def displayInOrder(self, root):
-        if root != None:
-            self.displayInOrder(root.ltree)
-            print(root.data)
-            self.displayInOrder(root.rtree)
-
-    def displayPreOrder(self, root):
-        if root != None:
-            print(root.data)
-            self.displayPreOrder(root.ltree)
-            self.displayPreOrder(root.rtree)
-
-    def displayPostOrder(self, root):
-        if root != None:
-            self.displayPostOrder(root.ltree)
-            self.displayPostOrder(root.rtree)
-            print(root.data)
 
 class BNode(object):
 
@@ -45,6 +28,27 @@ class BNode(object):
         self.data = data
         self.ltree = None
         self.rtree = None
+
+
+def displayInOrder(root):
+    if root is not None:
+        displayInOrder(root.ltree)
+        print(root.data)
+        displayInOrder(root.rtree)
+
+
+def displayPreOrder(root):
+    if root is not None:
+        print(root.data)
+        displayPreOrder(root.ltree)
+        displayPreOrder(root.rtree)
+
+
+def displayPostOrder(root):
+    if root is not None:
+        displayPostOrder(root.ltree)
+        displayPostOrder(root.rtree)
+        print(root.data)
 
 
 b = BSTree()
@@ -56,8 +60,8 @@ b.insert(10)
 b.insert(15)
 b.insert(2)
 print("Original Tree : ")
-b.displayInOrder(b.root)
+displayInOrder(b.root)
 print("Original Pre Order Tree : ")
-b.displayPreOrder(b.root)
+displayPreOrder(b.root)
 print("Original Post Order Tree : ")
-b.displayPostOrder(b.root)
+displayPostOrder(b.root)
