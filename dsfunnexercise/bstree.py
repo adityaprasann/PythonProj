@@ -22,11 +22,22 @@ class BSTree(object):
                     root.rtree = BNode(data)
 
     def displayInOrder(self, root):
-        while root != None:
+        if root != None:
             self.displayInOrder(root.ltree)
             print(root.data)
             self.displayInOrder(root.rtree)
 
+    def displayPreOrder(self, root):
+        if root != None:
+            print(root.data)
+            self.displayPreOrder(root.ltree)
+            self.displayPreOrder(root.rtree)
+
+    def displayPostOrder(self, root):
+        if root != None:
+            self.displayPostOrder(root.ltree)
+            self.displayPostOrder(root.rtree)
+            print(root.data)
 
 class BNode(object):
 
@@ -46,3 +57,7 @@ b.insert(15)
 b.insert(2)
 print("Original Tree : ")
 b.displayInOrder(b.root)
+print("Original Pre Order Tree : ")
+b.displayPreOrder(b.root)
+print("Original Post Order Tree : ")
+b.displayPostOrder(b.root)
