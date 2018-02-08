@@ -30,25 +30,43 @@ class BNode(object):
         self.rtree = None
 
 
-def displayInOrder(root):
+def displayInOrder(root, res):
     if root is not None:
-        displayInOrder(root.ltree)
-        print(root.data)
-        displayInOrder(root.rtree)
+        displayInOrder(root.ltree, res)
+        res.append(root.data)
+        displayInOrder(root.rtree, res)
+    return res
 
 
-def displayPreOrder(root):
+def displayPreOrder(root, res):
     if root is not None:
-        print(root.data)
-        displayPreOrder(root.ltree)
-        displayPreOrder(root.rtree)
+        res.append(root.data)
+        displayPreOrder(root.ltree, res)
+        displayPreOrder(root.rtree, res)
+    return res
 
 
-def displayPostOrder(root):
+def displayPostOrder(root, res):
     if root is not None:
-        displayPostOrder(root.ltree)
-        displayPostOrder(root.rtree)
-        print(root.data)
+        displayPostOrder(root.ltree, res)
+        displayPostOrder(root.rtree, res)
+        res.append(root.data)
+    return res
+
+
+def isValidBST(root, floor=float('-inf'), ceil=float('inf')):
+    if root is None:
+        return True
+    else:
+        return (floor <= root.data <= ceil) and isValidBST(root.ltree, floor, root.data) and isValidBST(root.rtree,
+                                                                                                        root.data, ceil)
+
+
+def isValidBSTSort(root):
+    out = displayInOrder(root, [])
+    if out == sorted(out):
+        return True
+    return False
 
 
 b = BSTree()
@@ -60,8 +78,21 @@ b.insert(10)
 b.insert(15)
 b.insert(2)
 print("Original Tree : ")
-displayInOrder(b.root)
+print(displayInOrder(b.root, []))
 print("Original Pre Order Tree : ")
-displayPreOrder(b.root)
+print(displayPreOrder(b.root, []))
 print("Original Post Order Tree : ")
-displayPostOrder(b.root)
+print(displayPostOrder(b.root, []))
+print("Valid BST ck : ")
+print(isValidBST(b.root))
+
+nb = BNode(8)
+nb.ltree = BNode(9)
+nb.ltree.ltree = BNode(1)
+nb.ltree.rtree = BNode(2)
+nb.rtree = BNode(7)
+nb.rtree.ltree = BNode(12)
+nb.rtree.rtree = BNode(9)
+print(isValidBST(nb))
+print(isValidBSTSort(b.root))
+print(isValidBSTSort(nb))
