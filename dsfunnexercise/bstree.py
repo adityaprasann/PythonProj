@@ -53,6 +53,34 @@ def displayPostOrder(root, res):
         res.append(root.data)
     return res
 
+def displayLevelOrder(root, res):
+    curr = [root]
+    while curr:
+        nextLvl = []
+        tempres = []
+        for n in curr:
+            tempres.append(n.data)
+            if(n.ltree):
+                nextLvl.append(n.ltree)
+            if(n.rtree):
+                nextLvl.append(n.rtree)
+        curr = nextLvl
+        res.append(tempres)
+    return res
+
+def trimTree(root, min, max):
+    if not root:
+        return
+    root.ltree = trimTree(root.ltree, min, max)
+    root.rtree = trimTree(root.rtree, min, max)
+
+    if(min <= root.data <= max):
+        return root
+    if(root.data <= min):
+        return root.rtree
+    if(root.data >= max):
+        return root.ltree
+
 
 def isValidBST(root, floor=float('-inf'), ceil=float('inf')):
     if root is None:
@@ -83,6 +111,8 @@ print("Original Pre Order Tree : ")
 print(displayPreOrder(b.root, []))
 print("Original Post Order Tree : ")
 print(displayPostOrder(b.root, []))
+print("Original Level Order Tree : ")
+print(displayLevelOrder(b.root, []))
 print("Valid BST ck : ")
 print(isValidBST(b.root))
 
@@ -96,3 +126,5 @@ nb.rtree.rtree = BNode(9)
 print(isValidBST(nb))
 print(isValidBSTSort(b.root))
 print(isValidBSTSort(nb))
+
+print(displayInOrder(trimTree(b.root, 3, 10),[]))
