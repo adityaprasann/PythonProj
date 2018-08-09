@@ -9,7 +9,7 @@ def list_true(n):
     retl[0] = retl[1] = False
     return retl
 
-# `mark_false` takes a list of booleans and a number $p$.  Mark all elements $2p,3p,...n$ false.
+# `mark_false` takes a list of booleans and a number $p$.  Mark all elements 2p,3p,...n false.
 def mark_false(bool_list, p):
     count = 2
     while (count * p < len(bool_list)):
@@ -17,7 +17,7 @@ def mark_false(bool_list, p):
         count = count + 1
     return bool_list
 
-# `find_next` Find the smallest `True` element in a list which is greater than some $p$ (has index greater than $p$.
+# `find_next` Find the smallest `True` element in a list which is greater than some p (has index greater than p.)
 def find_next(bool_list, p):
     retVal = None
     for x in range(p+1, len(bool_list)):
